@@ -1,2 +1,2 @@
 # TabMatch
-A Chrome extension to prevent tabnabbing attacks
+A Chrome extension to prevent tab-nabbing attacks

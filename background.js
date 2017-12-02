@@ -25,7 +25,7 @@ chrome.tabs.onActivated.addListener( function(newTab) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
     async function wait() {
-        await sleep(2000);
+        await sleep(1000);
         chrome.tabs.captureVisibleTab(function(screenshotUrl) {
             if(dict[tabId]){
                 const rembrandt = new Rembrandt({
@@ -44,7 +44,11 @@ chrome.tabs.onActivated.addListener( function(newTab) {
                     console.log('Passed:', result.passed)
                     console.log('Pixel Difference:', result.differences, 'Percentage Difference', result.percentageDifference, '%')
                     console.log('Composition image buffer:', result.compositionImage)
-
+                    chrome.tabs.getSelected(null, function(tab) {
+                        chrome.tabs.sendMessage(tabId, {data: encode(result.compositionImage)}, function(response) {
+                            console.log(response);
+                        });
+                    });
                 })
                 .catch((e) => {
                     console.error(e)
@@ -57,3 +61,13 @@ chrome.tabs.onActivated.addListener( function(newTab) {
     wait();
 
 });
+
+
+function encode(compositionImage) {
+    var newCanvas = document.createElement("canvas");
+    newCanvas.width = compositionImage.width;
+    newCanvas.height = compositionImage.height;
+    var newCtx = newCanvas.getContext("2d");
+    newCtx.drawImage(compositionImage, 0, 0);
+    return newCanvas.toDataURL("image/png");
+}

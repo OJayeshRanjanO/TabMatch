@@ -26,10 +26,8 @@ function addOverlay(image) {
 	btn.appendChild(t);                                // Append the text to <button>
 	btn.style.zIndex = 10;
 	document.getElementById("overlay").appendChild(btn);                    // Append <button> to <body>
-	btn.addEventListener("click",removeOverlay);
+	btn.addEventListener("click",function(){
+		document.getElementById("overlay").remove()
+	});
 
-}
-
-function removeOverlay(){
-	document.getElementById("overlay").remove();
 }

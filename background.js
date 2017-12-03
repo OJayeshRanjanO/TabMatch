@@ -1,7 +1,7 @@
 //Dictionary object to store screenshots
 var dict = new Object();
 
-//Take a screenshot of the current active tab every 30 seconds and replace the previous screenshot for the given tab.
+//Take a screenshot of the current active tab every 5 seconds and replace the previous screenshot for the given tab.
 (function(){
     chrome.tabs.captureVisibleTab(function(screenshotUrl) {
         chrome.tabs.query({

@@ -18,8 +18,16 @@ function addOverlay(image) {
 	overlayDiv.style.bottom = "0px";
 	overlayDiv.style.left = "0px";
 	overlayDiv.style.right = "0px";
-	overlayDiv.addEventListener("click",removeOverlay);
+	// overlayDiv.addEventListener("click",removeOverlay);
 	document.body.appendChild(overlayDiv);
+
+	var btn = document.createElement("BUTTON");        // Create a <button> element
+	var t = document.createTextNode("CLOSE");       // Create a text node
+	btn.appendChild(t);                                // Append the text to <button>
+	btn.style.zIndex = 10;
+	document.getElementById("overlay").appendChild(btn);                    // Append <button> to <body>
+	btn.addEventListener("click",removeOverlay);
+
 }
 
 function removeOverlay(){

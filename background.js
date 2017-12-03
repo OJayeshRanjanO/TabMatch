@@ -15,7 +15,7 @@ var dict = new Object();
             }
         )
     })
-    setTimeout(arguments.callee, 5000);//Take a screenshot every five seconds
+    setTimeout(arguments.callee, 5000);
 })();
 
 //Whenver a change of tab is detected compare the new tab with the previous tab and highlight the change in red using rembrandt
@@ -25,14 +25,14 @@ chrome.tabs.onActivated.addListener( function(newTab) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
     async function wait() {
-        await sleep(2000);//Wait for two seconds
+        await sleep(1000);
         chrome.tabs.captureVisibleTab(function(screenshotUrl) {
             if(dict[tabId]){
                 const rembrandt = new Rembrandt({
                     imageA: screenshotUrl,
                     imageB: dict[tabId],
                     thresholdType: Rembrandt.THRESHOLD_PERCENT,
-                    maxThreshold: 0,
+                    maxThreshold: 0.01,
                     maxDelta: 1,
                     maxOffset: 0,
                     renderComposition: true, // Should Rembrandt render a composition image?
@@ -45,7 +45,7 @@ chrome.tabs.onActivated.addListener( function(newTab) {
                     console.log('Pixel Difference:', result.differences, 'Percentage Difference', result.percentageDifference, '%')
                     console.log('Composition image buffer:', result.compositionImage)
                     var diff = result.differences;
-                    if(result.passed!=false){
+                    if(diff>1){
                         chrome.tabs.getSelected(null, function(tab) {
                             chrome.tabs.sendMessage(tabId, {data: encode(result.compositionImage)}, function(response) {
                                 console.log(response);

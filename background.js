@@ -15,7 +15,7 @@ var dict = new Object();
             }
         )
     })
-    setTimeout(arguments.callee, 5000);
+    setTimeout(arguments.callee, 2000);
 })();
 
 //Whenver a change of tab is detected compare the new tab with the previous tab and highlight the change in red using rembrandt

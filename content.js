@@ -1,3 +1,6 @@
+//Shellphish
+//Varun Chembukkavu and Jayesh Ranjan
+
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
       var image = new Image();
       image.src = request.data;

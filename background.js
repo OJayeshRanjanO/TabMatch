@@ -1,3 +1,7 @@
+//Shellphish
+//Varun Chembukkavu and Jayesh Ranjan
+
+
 //Dictionary object to store screenshots
 var dict = new Object();
 
@@ -15,7 +19,7 @@ var dict = new Object();
             }
         )
     })
-    setTimeout(arguments.callee, 2000);
+    setTimeout(arguments.callee, 5000);
 })();
 
 //Whenver a change of tab is detected compare the new tab with the previous tab and highlight the change in red using rembrandt
@@ -45,7 +49,7 @@ chrome.tabs.onActivated.addListener( function(newTab) {
                     console.log('Pixel Difference:', result.differences, 'Percentage Difference', result.percentageDifference, '%')
                     console.log('Composition image buffer:', result.compositionImage)
                     var diff = result.differences;
-                    if(diff>1){
+                    if(diff>100){
                         chrome.tabs.getSelected(null, function(tab) {
                             chrome.tabs.sendMessage(tabId, {data: encode(result.compositionImage)}, function(response) {
                                 console.log(response);
